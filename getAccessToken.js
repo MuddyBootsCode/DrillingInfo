@@ -17,7 +17,6 @@ const clientSecret = process.env.CLIENT_SECRET;
 const apiKey = process.env.API_KEY;
 
 const clientCreds = base64.encode(utf8.encode(`${clientId}:${clientSecret}`));
-console.log(clientCreds, '- Client Creds');
 
 const config = {
   headers: {

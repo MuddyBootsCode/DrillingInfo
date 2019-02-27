@@ -7,25 +7,27 @@ require('dotenv').config();
 const adapter = new FileSync('db.json');
 const db = low(adapter);
 
-token.getAccessToken();
+const pipe = (...fncs) => x => fncs.reduce((y, f) => f(y), x);
 
-let wellIds = db.get('wells').value();
+const texasWells = ids => ids.filter(id => id.includes("42-"));
+const replaceDashes = ids => ids.map(id => id.replace(/-/g, ""));
+const addZeros = ids => ids.map( id => `${id}0000`);
+const stringify = ids => ids.reduce((acc, val) => acc + `&apiNo=${val}`, "");
+
+const  texasWellString = pipe(texasWells, replaceDashes, addZeros, stringify);
+
+// const wellIds = db.get('wells').value();
+
+// console.log(texasWellString(wellIds));
+
+
+async function getinfo () {
+  await token.getAccessToken();
+  let wellIds = await db.get('wells').value();
+  let wellString = await texasWellString(wellIds);
+  await wells.wellInfo(wellString);
+}
 //
-// wellIds.map((id) => wells.wellInfo(id));
-//
-// const pipe = (...fncs) => x => fncs.reduce((y, f) => f(y), x);
-//
-// const replaceDashes = s => s.replace(/-/g, "");
-// const addZeros = s => `${s}0000`;
-//
-// const idFixer = pipe(replaceDashes, addZeros);
-//
-//
-// async function getinfo(wellIds) {
-//   const accessToken = await token.getAccessToken();
-//   await wellIds.map((id) => wells.wellInfo(idFixer(id)));
-// }
-//
-// getinfo(wellIds);
+getinfo();
 
 
