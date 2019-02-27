@@ -1,0 +1,25 @@
+{
+  "name": "drillinginfo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "getAccessToken.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "base-64": "^0.1.0",
+    "dotenv": "^6.2.0",
+    "flat": "^4.1.0",
+    "lowdb": "^1.0.0",
+    "neo4j-driver": "^1.7.2",
+    "utf8": "^3.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  }
+}
