@@ -9,7 +9,6 @@ require('dotenv').config();
 const adapter = new FileSync('db.json');
 const db = low(adapter);
 
-
 db.defaults({Token: ''}).write();
 
 const clientId = process.env.CLIENT_ID;
@@ -28,17 +27,16 @@ const config = {
 
 const data = 'grant_type=client_credentials';
 
-
 module.exports = {
   getAccessToken: async () => {
     try {
       const response = await axios.post(process.env.DI_URL, data, config);
       let token = response.data.access_token;
       db.set('Token', token).write();
+      console.log(`Token successfully obtained`);
       return token;
-
     } catch (error) {
-      console.log(error)
+      console.log(error.status, error.message)
     }
   }
 };
